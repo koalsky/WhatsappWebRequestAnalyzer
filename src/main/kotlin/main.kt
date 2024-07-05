@@ -1,7 +1,7 @@
 package it.auties.analyzer
 
-import org.openqa.selenium.devtools.v124.debugger.Debugger
-import org.openqa.selenium.devtools.v124.network.Network
+import org.openqa.selenium.devtools.v126.debugger.Debugger
+import org.openqa.selenium.devtools.v126.network.Network
 import java.util.Optional.empty
 
 val whatsappKeys: Keys = Keys()
@@ -12,10 +12,24 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     tools.createSession()
     tools.send(Debugger.enable(empty()))
     tools.send(Debugger.setBreakpointsActive(true))
-    tools.addListener(Debugger.scriptParsed()) { onWhatsappScriptLoaded(tools, it, "\"AES-GCM\",!1") }
-    tools.addListener(Debugger.paused()) { onBreakpointTriggered(tools, it) }
+
+    tools.addListener(Debugger.scriptParsed(), { scriptParsedEvent ->
+        onWhatsappScriptLoaded(tools, scriptParsedEvent, "\"AES-GCM\",!1")
+    })
+
+    tools.addListener(Debugger.paused(), { pausedEvent ->
+        onBreakpointTriggered(tools, pausedEvent)
+    })
+
     tools.send(Network.enable(empty(), empty(), empty()))
-    tools.addListener(Network.webSocketFrameSent()) { handleSentMessage(it) }
-    tools.addListener(Network.webSocketFrameReceived()) { handleReceivedMessage(it) }
+
+    tools.addListener(Network.webSocketFrameSent(), { webSocketFrameSentEvent ->
+        handleSentMessage(webSocketFrameSentEvent)
+    })
+
+    tools.addListener(Network.webSocketFrameReceived(), { webSocketFrameReceivedEvent ->
+        handleReceivedMessage(webSocketFrameReceivedEvent)
+    })
+
     driver["https://web.whatsapp.com/"]
 }

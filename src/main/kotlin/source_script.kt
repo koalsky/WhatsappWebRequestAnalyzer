@@ -1,10 +1,10 @@
 package it.auties.analyzer
 
 import org.openqa.selenium.devtools.DevTools
-import org.openqa.selenium.devtools.v124.debugger.Debugger
-import org.openqa.selenium.devtools.v124.debugger.model.Location
-import org.openqa.selenium.devtools.v124.debugger.model.Paused
-import org.openqa.selenium.devtools.v124.debugger.model.ScriptParsed
+import org.openqa.selenium.devtools.v126.debugger.Debugger
+import org.openqa.selenium.devtools.v126.debugger.model.Location
+import org.openqa.selenium.devtools.v126.debugger.model.Paused
+import org.openqa.selenium.devtools.v126.debugger.model.ScriptParsed
 import java.util.Optional.empty
 import java.util.Optional.of
 
