@@ -12,3 +12,6 @@ Download and install Java 16 from [Oracle's official website](https://www.oracle
 Make sure you have latest chrome version installed
 
 Once these steps are completed, launch the program. A browser window will open, and all data sent and received by WhatsApp will be displayed in the console.
+
+Compile and run with
+mvn -e -f pom.xml clean compile exec:java
